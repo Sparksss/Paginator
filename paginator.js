@@ -1,5 +1,5 @@
 /**
- * Добавляет Пагинацию
+ * add pagination
  *
  * @param {number} page - current page
  * @param {number} count - count of pages
@@ -109,4 +109,4 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 };
 
 var pg = document.getElementById('paginator');
-pg.renderPaginator(1, 10, (page) => console.log(page));
+pg.renderPaginator('1', '10', (page) => console.log(page));
