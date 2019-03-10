@@ -1,9 +1,9 @@
 /**
  * Добавляет Пагинацию
  *
- * @param page
- * @param count
- * @param callback
+ * @param {number} page - current page
+ * @param {number} count - count of pages
+ * @param {requestCallback} callback - The callback that handles the response
  */
 Element.prototype.renderPaginator = function(page, count, callback) {
   var currentPage = +page;
@@ -15,6 +15,9 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 
   /**
    * Create pages(range from 1 to 5)
+   * @param {number} min - min of render range
+   * @param {number} max - max of count renderd elements
+   * @param {number} page - current page
    */
   var createPaginator = function(min, max, page) {
     var fragment = document.createDocumentFragment();
@@ -48,7 +51,8 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 
   /**
    * render pagination on page
-   *
+   *@param {number} currentPage - current page
+   *@param {number} totalPages - all pages
    */
   var render = function(currentPage, totalPages) {
 
