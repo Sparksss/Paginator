@@ -82,7 +82,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 
     var fr = createPaginator(min, max, currentPage);
 
-    if(currentPage < totalPages && totalPages > 6) {
+    if(currentPage < totalPages && totalPages > 5) {
       fr.appendChild(createCountPage(totalPages));
     }
 
@@ -94,6 +94,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
   this.addEventListener("click", function(event) {
     event.preventDefault();
     var page = +event.target.dataset.page;
+    if(isNaN(page)) return false;
     callback(page);
     elem.innerHTML = "";
     render(page, +count);
@@ -101,4 +102,4 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 };
 
 var pg = document.getElementById('paginator');
-pg.renderPaginator(1, 213, (page) => console.log(page));
+pg.renderPaginator(1, 6, (page) => console.log(page));
