@@ -8,8 +8,9 @@
 Element.prototype.renderPaginator = function(page, count, callback) {
   var currentPage = +page;
   var totalPages = +count;
-  if (!currentPage || !totalPages || +totalPages == 1) {
-    return false;
+  var previousPage = currentPage;
+  if (!currentPage || !totalPages || totalPages === 1) {
+    throw "Error: Parameter is not a number!";
   }
   var elem = this;
 
@@ -18,6 +19,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
    * @param {number} min - min of render range
    * @param {number} max - max of count renderd elements
    * @param {number} page - current page
+   * @returns {DocumentFragment} - fragment contains buttons for select page
    */
   var createPaginator = function(min, max, page) {
     var fragment = document.createDocumentFragment();
@@ -39,6 +41,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
   /**
    * Create count of pages
    * @param {number} count
+   * @returns {HTMLAnchorElement} last page
    */
   var createCountPage = function(count) {
     var lastPage = document.createElement("a");
@@ -55,6 +58,8 @@ Element.prototype.renderPaginator = function(page, count, callback) {
    *@param {number} totalPages - all pages
    */
   var render = function(currentPage, totalPages) {
+
+    selectedPage = currentPage;
 
     if(totalPages < 6) {
       return elem.appendChild(createPaginator(1, totalPages + 1, currentPage));
@@ -101,7 +106,10 @@ Element.prototype.renderPaginator = function(page, count, callback) {
   this.addEventListener("click", function(event) {
     event.preventDefault();
     var page = +event.target.dataset.page;
-    if(isNaN(page)) return false;
+    if(previousPage === page || isNaN(page)) {
+      return false;
+    }
+    previousPage = page;
     elem.innerHTML = "";
     render(+page, +count);
     callback(page);
