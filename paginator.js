@@ -9,8 +9,10 @@ Element.prototype.renderPaginator = function(page, count, callback) {
   var currentPage = +page;
   var totalPages = +count;
   var previousPage = currentPage;
+  var pagesBefore = 2;
+  var pagesAfter = 3;
   if (!currentPage || !totalPages || totalPages === 1) {
-    throw "Error: Parameter is not a number!";
+    return false;
   }
   var elem = this;
 
@@ -21,7 +23,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
    * @param {number} page - current page
    * @returns {DocumentFragment} - fragment contains buttons for select page
    */
-  var createPaginator = function(min, max, page) {
+  var createPages = function(min, max, page) {
     var fragment = document.createDocumentFragment();
     for (min; min < max; min++) {
       var a = document.createElement("a");
@@ -62,13 +64,13 @@ Element.prototype.renderPaginator = function(page, count, callback) {
     selectedPage = currentPage;
 
     if(totalPages < 6) {
-      return elem.appendChild(createPaginator(1, totalPages + 1, currentPage));
+      return elem.appendChild(createPages(1, totalPages + 1, currentPage));
     }
 
-    var min = currentPage - 2 > 0 ? currentPage - 2 :  0;
-    var max = currentPage + 3 > totalPages ? (currentPage + 3) - ((currentPage + 3) - totalPages)  : currentPage + 3;
+    var min = currentPage - pagesBefore > 0 ? currentPage - pagesBefore :  0;
+    var max = currentPage + pagesAfter > totalPages ? (currentPage + pagesAfter) - ((currentPage + pagesAfter) - totalPages)  : currentPage + pagesAfter;
 
-    if(currentPage + 3 > totalPages) {
+    if(currentPage + pagesAfter > totalPages) {
       page = totalPages;
     }
 
@@ -92,7 +94,7 @@ Element.prototype.renderPaginator = function(page, count, callback) {
       max = totalPages + 1;
     }
 
-    var fr = createPaginator(min, max, currentPage);
+    var fr = createPages(min, max, currentPage);
 
     if(currentPage < totalPages && totalPages > 5) {
       fr.appendChild(createCountPage(totalPages));
