@@ -98,9 +98,9 @@ Element.prototype.renderPaginator = function(page, count, callback) {
     event.preventDefault();
     var page = +event.target.dataset.page;
     if(isNaN(page)) return false;
-    callback(page);
     elem.innerHTML = "";
-    render(page, +count);
+    render(+page, +count);
+    callback(page);
   });
 };
 
