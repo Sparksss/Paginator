@@ -1,0 +1,9 @@
+.page_button_paginator {
+    display: inline-block;
+    border: 1px solid #eee;
+  }
+  
+  .active {
+    background-color: blue;
+    color: #fff;
+  }
