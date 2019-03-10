@@ -56,11 +56,11 @@ Element.prototype.renderPaginator = function(page, count, callback) {
       return elem.appendChild(createPaginator(1, totalPages + 1, currentPage));
     }
 
-    var min = 0;
+    var min = currentPage - 2 > 0 ? currentPage - 2 :  0;
     var max = currentPage + 3 > totalPages ? (currentPage + 3) - ((currentPage + 3) - totalPages)  : currentPage + 3;
 
     if(currentPage + 3 > totalPages) {
-      page += page - totalPages;
+      page = totalPages;
     }
 
     switch(currentPage) {
@@ -71,6 +71,9 @@ Element.prototype.renderPaginator = function(page, count, callback) {
       case 2:
         min = currentPage - 1;
         max += 1;
+        break;
+        case totalPages:
+        max++;
         break;
       default:
         min = currentPage - 2;
@@ -102,4 +105,4 @@ Element.prototype.renderPaginator = function(page, count, callback) {
 };
 
 var pg = document.getElementById('paginator');
-pg.renderPaginator(1, 6, (page) => console.log(page));
+pg.renderPaginator(1, 10, (page) => console.log(page));
