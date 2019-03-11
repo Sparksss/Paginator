@@ -11,7 +11,12 @@ Element.prototype.renderPaginator = function(page, count, callback) {
   var previousPage = currentPage;
   var pagesBefore = 2;
   var pagesAfter = 3;
-  if (!currentPage || !totalPages || totalPages === 1) {
+
+  if (isNaN(currentPage) || isNaN(totalPages)) {
+    throw "Error: parameters is not a number!";
+  }
+
+  if(totalPages === 1) {
     return false;
   }
   var elem = this;
